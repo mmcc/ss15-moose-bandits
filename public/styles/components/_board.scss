@@ -1,9 +1,23 @@
 .board {
   height: 100%;
   width: 100%;
+  font-family: 'Arial Black', 'Arial Bold', Gadget, sans-serif;
 }
 
+.board th, td {
+  vertical-align: middle;
+  border: 8px solid #000;
+  background-color: #0009D4;
+}
+.board th {
+  padding: 20px;
+  color: #fff;
+  border-bottom: 12px solid #000;
+  font-size: 125%;
+}
 .board td {
   text-align: center;
-  background-color: #ccc;
+  color: #FFF382;
+  font-weight: bold;
+  font-size: 200%;
 }
