@@ -3,5 +3,8 @@ var jservice = require('./jservice');
 
 console.log('neato, Trebek!');
 
-jservice.categories();
+jservice.generateColumn(jservice.category(), function(data) {
+  console.log(data);
+});
+
 
