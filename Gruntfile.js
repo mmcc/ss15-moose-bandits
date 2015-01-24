@@ -45,5 +45,6 @@ module.exports = function(grunt) {
 
   // Default task(s).
   grunt.registerTask('default', ['browserify']);
+  grunt.registerTask('build', ['browserify', 'harp:dist']);
   grunt.registerTask('dev', ['concurrent']);
 };
