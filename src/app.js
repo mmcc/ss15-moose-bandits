@@ -21,6 +21,9 @@ jeopardy.createGame(function(err, gameId){
   jeopardy.initDashboard(gameId, function(err, dashboard){
     if(err) { console.log(err); return}
     console.log(dashboard.gameId)
+    dashboard.setDisplayBoardCB(function(bard){
+      console.log(bard);
+    })
   });
 });
 
