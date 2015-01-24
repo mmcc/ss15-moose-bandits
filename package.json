@@ -27,6 +27,7 @@
     "grunt-concurrent": "^1.0.0",
     "grunt-contrib-watch": "^0.6.1",
     "grunt-harp": "^0.1.4",
-    "node-reset-scss": "^1.0.1"
+    "node-reset-scss": "^1.0.1",
+    "jquery": "^2.1.3"
   }
 }
