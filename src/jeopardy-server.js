@@ -1,10 +1,10 @@
 (function() {
 
-	function JeopardyServer(options) {
-		this.firebase = options.firebase;
-		this.gameId = options.gameId;
-		this.authData = options.authData;
-	}
+  function JeopardyServer(options) {
+    this.firebase = options.firebase;
+    this.gameId = options.gameId;
+    this.authData = options.authData;
+  }
 
-	module.exports = JeopardyServer;
+  module.exports = JeopardyServer;
 })()
