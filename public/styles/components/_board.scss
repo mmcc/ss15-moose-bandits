@@ -1,0 +1,22 @@
+.board {
+  height: 100%;
+  width: 100%;
+}
+
+.board th, td {
+  vertical-align: middle;
+  border: 8px solid $panel-border;
+  background-color: $panel-bg;
+}
+.board th {
+  padding: 20px;
+  color: $panel-category-color;
+  border-bottom: 12px solid $panel-border;
+  font-size: 125%;
+}
+.board td {
+  text-align: center;
+  color: $panel-amount-color;
+  font-weight: bold;
+  font-size: 200%;
+}
