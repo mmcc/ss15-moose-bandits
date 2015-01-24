@@ -9,6 +9,10 @@
     this.firebase = new Firebase(config);
   }
 
+
+  // Use this to Create a new game
+  // Anyone can do this, anytime, after creating the game,
+  // Use either initServer or init Client to do the things
   Jeopardy.prototype.createGame = function(callback) {
     var fbGames = this.firebase.child(gamesPath);
     var gameRef = fbGames.push({initialized: false}, function(err) {
@@ -35,7 +39,8 @@
     });
   }
 
-  Jeopardy.prototype.initDashboard = function(gameId, callback) {
+  //Create a new JeopardyServer object that is returned as the second param in the callback
+  Jeopardy.prototype.initServer = function(gameId, callback) {
     this._joinGame(gameId, function(err, data) {
       if (err) { callback(err); return}
       var jServer = new JeopardyServer(data);
@@ -45,6 +50,7 @@
     });
   }
 
+  //Create a new JeopardyClient object that is returned as the second param in the callback
   Jeopardy.prototype.initClient = function(gameId, callback) {
     this._joinGame(gameId, function(err, data) {
       if (err) { callback(err); return}

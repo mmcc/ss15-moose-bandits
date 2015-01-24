@@ -20,12 +20,17 @@ jservice.generateBoard(function(category, clues) {
 var Jeopardy = require('./jeopardy')
 jeopardy = new Jeopardy("https://moose-bandits.firebaseio.com/")
 
+//Creates a new game every refresh right now
 jeopardy.createGame(function(err, gameId){
-  jeopardy.initDashboard(gameId, function(err, dashboard){
+  //Start up a new server
+  jeopardy.initServer(gameId, function(err, server){
     if(err) { console.log(err); return}
-    console.log(dashboard.gameId)
-    dashboard.setDisplayBoardCB(function(bard){
-      console.log(bard);
+    console.log(server.gameId)
+
+    //This callback happens anytime the displayable "board" changes
+    //The callback param is an object ~ {category1: {100: {status: 'active'}, 200: {status: 'done'}}}
+    server.setDisplayBoardCB(function(board){
+      console.log(board);
     })
   });
 });
