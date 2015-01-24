@@ -11,10 +11,11 @@ var apiCall = function(url, callback) {
   jquery.get(url, callback);
 };
 
-var category = function() {
+var category = function(index) {
   var titles = Object.keys(categories);
   var randTitle = titles[Math.floor(Math.random() * titles.length)]
   return {
+    index: index,
     title: randTitle,
     id: categories[randTitle]
   };
@@ -23,9 +24,9 @@ var category = function() {
 var generateCategories = function() {
   var boardCategories = [];
   for(i=0; i<6; i++) {
-    var sel = category();
+    var sel = category(i);
     while (boardCategories.indexOf(sel) != -1) {
-      sel = category();
+      sel = category(i);
     }
     boardCategories.push(sel);
   }
