@@ -3,7 +3,7 @@ var isPosedAsAQuestion = function(userInput) {
   var firstWord = userInput.split(' ')[0].toLowerCase();
   var secondWord = userInput.split(' ')[1].toLowerCase()
   return ((firstWord === 'what') || (firstWord === 'who') &&
-          (secondWord === 'is') || (firstWord === 'are')
+          (secondWord === 'is') || (secondWord === 'are')
          );
 };
 
