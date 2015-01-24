@@ -11,4 +11,3 @@ jservice.generateBoard(function(category, clues) {
     jquery("header").append("<p>"+i+":::"+clue.question+":::"+clue.answer+"</p>");
   });
 });
-
