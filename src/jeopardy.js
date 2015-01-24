@@ -1,6 +1,7 @@
 (function() {
   var JeopardyClient = require('./jeopardy-client');
   var JeopardyServer = require('./jeopardy-server');
+  var gamesPath = 'games';
 
   function Jeopardy(config){
     var Firebase = require('firebase');
@@ -9,7 +10,10 @@
   }
 
   Jeopardy.prototype.createGame = function(callback) {
-
+    var fbGames = this.firebase.child(gamesPath);
+    var gameRef = fbGames.push({initialized: false}, function(err) {
+        callback(err, gameRef.key());
+      });
   }
 
   Jeopardy.prototype._joinGame = function(gameId, callback){
@@ -28,8 +32,7 @@
       } else {
         callback("Game does not exist");
       }
-    })
-    
+    });
   }
 
   Jeopardy.prototype.initDashboard = function(gameId, callback) {
