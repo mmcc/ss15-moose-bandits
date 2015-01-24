@@ -33,20 +33,27 @@ var generateCategories = function() {
 }
 
 
+module.exports.getClue = function(category, value) {
+  var url = proxyUrl('http://jservice.io/api/clues?category=' + category.id);
+  apiCall(url, function(data) {
+    var clues = data.filter(function(c) {
+      return c.value === value;
+    });
+  });
+};
+
 var generateClues = function(category, callback) {
   var url = proxyUrl('http://jservice.io/api/clues?category=' + category.id);
   apiCall(url, function(data) {
-    var clues = [];
+    var cluesMap = {};
 
-    for(i=0; i<5; i++) {
-      var sel = data[Math.floor(Math.random() * data.length)];
-      while (clues.indexOf(sel) != -1) {
-        sel = data[Math.floor(Math.random() * data.length)];
+    while (Object.keys(cluesMap).length != 5) {
+      var clue = data[Math.floor(Math.random() * data.length)];
+      if (clue.value && clue.value <= 500) {
+        cluesMap[clue.value] = clue;
       }
-      clues.push(sel);
     }
-
-    callback(clues);
+    callback(cluesMap);
   });
 };
 
@@ -56,7 +63,6 @@ module.exports.generateBoard = function(callback) {
   var allCategories = generateCategories();
   allCategories.forEach(function(cat) {
     generateClues(cat, function(clues) {
-      console.log(clues);
       callback(cat, clues);
     });
   });

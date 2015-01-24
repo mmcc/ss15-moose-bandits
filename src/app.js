@@ -5,7 +5,11 @@ console.log('neato, Trebek!');
 
 jservice.generateBoard(function(category, clues) {
   jquery("header").append("<h1>"+category.title+"</h1>");
-  clues.forEach(function(clue) {
-    jquery("header").append("<p>"+clue.question+":::"+clue.answer+"</p>");
+
+  jservice.getClue(category, 100);
+
+  jquery.each(clues, function(i) {
+    var clue = clues[i];
+    jquery("header").append("<p>"+i+":::"+clue.question+":::"+clue.answer+"</p>");
   });
 });
