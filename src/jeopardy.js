@@ -1,4 +1,7 @@
 (function() {
+	var JeopardyClient = require('./jeopardy-client');
+	var JeopardyServer = require('./jeopardy-server');
+
 	function Jeopardy(config){
 		var Firebase = require('firebase');
 		var jeopardy = this;
@@ -9,19 +12,27 @@
 
 	}
 
+	Jeopardy.prototype._joinGame = function(gameId, callback){
+		var firebase = this.firebase;
+		firebase.authAnonymously(function(err, authData){
+			opts = {
+				gameId : gameId,
+				firebase: firebase.child('games').child(gameId),
+				authData: authData
+			};
+			callback(err, opts);
+		});
+	}
+
 	Jeopardy.prototype.initDashboard = function(gameId, callback) {
-		this.firebase.authAnonymously(function(err, authData){
-			if (err) { callback(err, null); return }
-			this.authData = authData;
-			callback(null, require('./jeopardy-server')(this, gameId));
+		this._joinGame(gameId, function(err, data) {
+			callback(err, new JeopardyServer(data));
 		});
 	}
 
 	Jeopardy.prototype.initClient = function(gameId, callback) {
-		this.firebase.authAnonymously(function(err, authData){
-			if (err) { callback(err, null); return }
-			this.authData = authData;
-			callback(null, require('./jeopardy-client'));
+		this._joinGame(gameId, function(err, data) {
+			callback(err, new JeopardyClient(data));
 		});
 	}
 
