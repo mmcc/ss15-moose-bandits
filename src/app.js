@@ -1,1 +1,1 @@
-console.log('neato, Trebek.');
+console.log('neato, Trebek!');
