@@ -1,69 +1,12 @@
-<table class="board">
-  <thead>
-    <tr>
-      <th>Category 1</th>
-      <th>Category 2</th>
-      <th>Category 3</th>
-      <th>Category 4</th>
-      <th>Category 5</th>
-      <th>Category 6</th>
-    </tr>
-  </thead>
+<header>
+  <h2 id="header-text">Trebekacolypse Now!</h2>
 
-  <tbody>
-    <tr>
-      <td>$100</td>
-      <td>$100</td>
-      <td>$100</td>
-      <td>$100</td>
-      <td>$100</td>
-      <td>$100</td>
-    </tr>
-    <tr>
-      <td>$200</td>
-      <td>$200</td>
-      <td>$200</td>
-      <td>$200</td>
-      <td>$200</td>
-      <td>$200</td>
-    </tr>
-    <tr>
-      <td>$400</td>
-      <td>$400</td>
-      <td>$400</td>
-      <td>$400</td>
-      <td>$400</td>
-      <td>$400</td>
-    </tr>
-    <tr>
-      <td>$600</td>
-      <td>$600</td>
-      <td>$600</td>
-      <td>$600</td>
-      <td>$600</td>
-      <td>$600</td>
-    </tr>
-    <tr>
-      <td>$800</td>
-      <td>$800</td>
-      <td>$800</td>
-      <td>$800</td>
-      <td>$800</td>
-      <td>$800</td>
-    </tr>
-    <tr>
-      <td>$1000</td>
-      <td>$1000</td>
-      <td>$1000</td>
-      <td>$1000</td>
-      <td>$1000</td>
-      <td>$1000</td>
-    </tr>
-  </tbody>
-</table>
+  <button id="scores" class="info">Scores</button>
+  <button id="quit" class="danger">Quit</button>
+</header>
 
-<div id="trebek-answer" class="hidden">
-  <div class="content">
-    <p>He said, "What a good boy am I!"--if he's so good, why was he in the corner?:::(Little Jack) Horner</p>
-  </div>
+<div class="board-container">
+  <%- partial("_board") %>
 </div>
+
+<%- partial("_modal") %>

@@ -1,4 +1,4 @@
-#trebek-answer {
+.modal {
   position: absolute;
   top: 0;
   left: 0;
@@ -8,7 +8,7 @@
   background-color: rgba($panel-border, 0.7);
 }
 
-#trebek-answer .content {
+.modal .content {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -22,7 +22,7 @@
   color: $panel-category-color;
 }
 
-#trebek-answer .content p {
+.modal .content p {
   font-size: 200%;
   text-align: center;
   line-height: 150%;
