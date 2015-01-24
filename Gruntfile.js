@@ -11,6 +11,24 @@ module.exports = function(grunt) {
         },
       },
     },
+    concurrent: {
+      options: {
+        logConcurrentOutput: true
+      },
+      dev: {
+        tasks: ['watch', 'harp']
+      }
+    },
+    harp: {
+      server: {
+        server: true,
+        source: 'public'
+      },
+      dist: {
+        source: 'public',
+        dest: 'www'
+      }
+    },
     browserify: {
       dist: {
         files: {
@@ -20,11 +38,12 @@ module.exports = function(grunt) {
     }
   });
 
-  // Load the plugin that provides the "uglify" task.
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-browserify');
+  grunt.loadNpmTasks('grunt-harp');
+  grunt.loadNpmTasks('grunt-concurrent');
 
   // Default task(s).
   grunt.registerTask('default', ['browserify']);
-
+  grunt.registerTask('dev', ['concurrent']);
 };
