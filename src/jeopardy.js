@@ -37,12 +37,17 @@
 
   Jeopardy.prototype.initDashboard = function(gameId, callback) {
     this._joinGame(gameId, function(err, data) {
-      callback(err, new JeopardyServer(data));
+      if (err) { callback(err); return}
+      var jServer = new JeopardyServer(data);
+      jServer.register(function(){
+        callback(err, jServer);
+      });
     });
   }
 
   Jeopardy.prototype.initClient = function(gameId, callback) {
     this._joinGame(gameId, function(err, data) {
+      if (err) { callback(err); return}
       callback(err, new JeopardyClient(data));
     });
   }

@@ -18,9 +18,9 @@ var Jeopardy = require('./jeopardy')
 jeopardy = new Jeopardy("https://moose-bandits.firebaseio.com/")
 
 jeopardy.createGame(function(err, gameId){
-  jeopardy.initDashboard(gameId, function(err, client){
+  jeopardy.initDashboard(gameId, function(err, dashboard){
     if(err) { console.log(err); return}
-    client.printGameId();
+    console.log(dashboard.gameId)
   });
 });
 
