@@ -1,10 +1,29 @@
 #trebek-answer {
   position: absolute;
-  top: 5%;
-  right: 5%;
-  bottom: 5%;
-  left: 5%;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
 
-  background-color: #000;
-  color: $panel-answer-color;
+  background-color: rgba($panel-border, 0.7);
+}
+
+#trebek-answer .content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 80%;
+  border: 20px solid $panel-border;
+  padding: 5%;
+
+  transform: translate(-50%, -50%);
+
+  background-color: $panel-bg;
+  color: $panel-category-color;
+}
+
+#trebek-answer .content p {
+  font-size: 200%;
+  text-align: center;
+  line-height: 150%;
 }
