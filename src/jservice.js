@@ -57,7 +57,7 @@ module.exports.generateBoard = function(callback) {
   allCategories.forEach(function(cat) {
     generateClues(cat, function(clues) {
       console.log(clues);
-      callback(clues);
+      callback(cat, clues);
     });
   });
 };
