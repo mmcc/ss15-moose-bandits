@@ -1,5 +1,8 @@
+@import "variables";
+
 @import "../../node_modules/node-reset-scss/scss/reset";
 
-@import "layout";
-
+@import "components/layout";
+@import "components/global";
 @import "components/board";
+@import "components/trebek-answer";

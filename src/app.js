@@ -1,5 +1,6 @@
 var jquery = require('jquery');
 var jservice = require('./jservice');
+var polymer = require('polyfill-webcomponents');
 
 console.log('neato, Trebek!');
 
