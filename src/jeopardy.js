@@ -14,14 +14,22 @@
 
   Jeopardy.prototype._joinGame = function(gameId, callback){
     var firebase = this.firebase;
-    firebase.authAnonymously(function(err, authData){
-      opts = {
-        gameId : gameId,
-        firebase: firebase.child('games').child(gameId),
-        authData: authData
-      };
-      callback(err, opts);
-    });
+    var gameRef = firebase.child('games').child(gameId)
+    gameRef.once('value', function(gameData){
+      if(gameData.exists()) {
+        firebase.authAnonymously(function(err, authData){
+          opts = {
+            gameId : gameId,
+            firebase: gameRef,
+            authData: authData
+          };
+          callback(err, opts);
+        });
+      } else {
+        callback("Game does not exist");
+      }
+    })
+    
   }
 
   Jeopardy.prototype.initDashboard = function(gameId, callback) {
