@@ -13,7 +13,7 @@ jservice.generateBoard(function(category, clues) {
 
   jquery.each(clues, function(i) {
     var clue = clues[i];
-    jquery("header").append("<p>"+i+":::"+clue.question+":::"+clue.answer+"</p>");
+    // jquery("header").append("<p>"+i+":::"+clue.question+":::"+clue.answer+"</p>");
   });
 });
 
@@ -34,4 +34,5 @@ jeopardy.createGame(function(err, gameId){
     })
   });
 });
+
 

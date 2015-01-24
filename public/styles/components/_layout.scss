@@ -1,1 +1,11 @@
 html, body { height: 100%; }
+
+header {
+  height: 30px;
+  padding: 0 10px;
+  display: flex;
+}
+
+#header-text {
+  line-height: 30px;
+}

@@ -1,0 +1,18 @@
+button {
+  padding: 5px 10px;
+  align-self: center;
+  margin-left: 5px;
+  cursor: pointer;
+  background-color: #fff;
+  border: 2px solid #000;
+  border-radius: 4px;
+
+  &.danger {
+    background-color: $danger;
+    color: #fff;
+  }
+  &.info {
+    background-color: #fff;
+  }
+  &.caution { background-color: $caution; }
+}
