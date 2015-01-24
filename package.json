@@ -1,0 +1,23 @@
+{
+  "name": "ss15-moose-bandits",
+  "version": "1.0.0",
+  "description": "MOOSE BANDITS FTW",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/staticshowdown/ss15-moose-bandits.git"
+  },
+  "keywords": [
+    "moose",
+    "bandits"
+  ],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/staticshowdown/ss15-moose-bandits/issues"
+  },
+  "homepage": "https://github.com/staticshowdown/ss15-moose-bandits"
+}
