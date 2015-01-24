@@ -31,9 +31,8 @@ var whiteSimilarity = function(strA, strB) {
 var isPosedAsAQuestion = function(userInput) {
   var firstWord = userInput.split(' ')[0].toLowerCase();
   var secondWord = userInput.split(' ')[1].toLowerCase()
-  return ((firstWord === 'what') || (firstWord === 'who') &&
-          (secondWord === 'is') || (secondWord === 'are')
-         );
+  return !(firstWord.match(/(what|whats|where|wheres|who|whos)/) == null) &&
+         !(secondWord.match(/^(is|are|was|were)/) == null);
 };
 
 module.exports.checkAnswer = function(userInput, answer) {
