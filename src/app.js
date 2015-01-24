@@ -1,7 +1,14 @@
 var jquery = require('jquery');
 var jservice = require('./jservice');
+var vox = require('./vox');
 
 console.log('neato, Trebek!');
+
+jquery('button').click(function() {
+  vox.tell(function(transcript) {
+    console.log(transcript);
+  });
+});
 
 jservice.generateBoard(function(category, clues) {
   jquery("header").append("<h1>"+category.title+"</h1>");
