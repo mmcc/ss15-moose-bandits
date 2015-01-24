@@ -4,6 +4,7 @@ var answers = require('./answers');
 var polymer = require('polyfill-webcomponents');
 
 console.log(answers.checkAnswer('What is New Hampshire', 'new hampshire'));
+console.log(answers.checkAnswer('What is neew hampsheer', 'new hampshire'));
 console.log(answers.checkAnswer('new hampshire', 'new hampshire'));
 
 jservice.generateBoard(function(category, clues) {
