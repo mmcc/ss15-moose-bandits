@@ -1,7 +1,11 @@
 var jquery = require('jquery');
 var jservice = require('./jservice');
+var answers = require('./answers');
 
 console.log('neato, Trebek!');
+
+console.log(answers.checkAnswer('What is New Hampshire', 'new hampshire'));
+console.log(answers.checkAnswer('new hampshire', 'new hampshire'));
 
 jservice.generateBoard(function(category, clues) {
   jquery("header").append("<h1>"+category.title+"</h1>");
