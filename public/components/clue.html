@@ -86,7 +86,7 @@
           setInterval(function() {
             self.$.timer.innerHTML = seconds;
             seconds--;
-            if seconds < 0 {
+            if (seconds < 0) {
               seconds = 10;
             }
           }, 1000);
