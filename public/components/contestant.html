@@ -1,6 +1,6 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
 
-<polymer-element name="trebek-contestant" attributes="name score host?">
+<polymer-element name="trebek-contestant" attributes="name score host? answering?">
   <template>
     <style>
       :host {
@@ -18,12 +18,24 @@
       :host p.contestant-name {
         padding-right: 5px;
       }
+
+      :host p.hosting {
+        color: red;
+      }
+
+      :host p.answering {
+        text-shadow: 1px 1px red;
+      }
     </style>
-    <p class="contestant-name">{{name}}</p>
+    <p class="{{ {hosting: isHosting, answering: isAnswering} | tokenList}} contestant-name">{{name}}</p>
     <p class="contestant-score">${{score}}</p>
   </template>
   <script>
     Polymer('trebek-contestant', {
+      ready: function() {
+        this.isHosting = this.getAttribute('host?');
+        this.isAnswering = this.getAttribute('answering?');
+      },
     });
   </script>
 </polymer-element>
