@@ -28,7 +28,7 @@
           if (catData.hasOwnProperty(clue)){
             if (displayData[i] == null) {displayData[i] = []}
             var clueData = catData[clue];
-            var clueObj = {value: clueData.value, status: clueData.status}
+            var clueObj = {value: clueData.value, status: clueData.status, category: b64_to_utf8(category)}
             displayData[i].push(clueObj)
             i++;
           }
