@@ -1,6 +1,9 @@
-module.exports.say = function(text) {
+module.exports.say = function(text, onEnd) {
   var utterance = new SpeechSynthesisUtterance(text);
-  window.speechSythesis.speak(utterance);
+  utterance.addEventListener('end', onEnd);
+  setTimeout(function() {
+    window.speechSynthesis.speak(utterance)
+  }, 100);
 };
 
 module.exports.tell = function(callback) {
