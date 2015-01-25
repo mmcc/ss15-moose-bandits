@@ -80,6 +80,7 @@
         });
       }
     });
+    callback();
   }
 
   JeopardyServer.prototype._setupGame = function(callback) {
