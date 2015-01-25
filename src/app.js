@@ -92,9 +92,6 @@ jquery('#new-game').click(function(e) {
   resetAndReload();
 })
 jquery('#username').click(function(e) {
-  user.client.loginUser(user.username(), function() {
-    console.log('fucker');
-  });
   jquery('trebek-user').attr('user', user.username()).removeAttr('hide');
 })
 jquery('#share').click(function(e) {

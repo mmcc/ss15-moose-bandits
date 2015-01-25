@@ -34,7 +34,8 @@
         }
       },
       save: function() {
-        User.username(this.user)
+        User.username(this.user);
+        User.client.loginUser(this.user);
         this.close();
       },
       close: function() {
