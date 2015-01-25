@@ -30,7 +30,7 @@
         <p>Time's up or you got it wrong, but either way...</p>
       </template>
 
-      <p id="transcript"></p>
+      <p hidden?={{!canAnswer}} id="transcript"></p>
     </trebek-modal>
   </template>
 
@@ -62,12 +62,12 @@
         if (!newVal) return;
 
         var transcript = this.$.transcript;
-        this.$.speechMic.addEventListener('speech-mic-result', function(e) {
+        this.listener = this.$.speechMic.addEventListener('speech-mic-result', function(e) {
           transcript.innerHTML = e.detail.transcript;
           if (e.detail.isFinal) {
             transcript.innerHTML = e.detail.transcript;
             User.client.submitAnswer(e.detail.transcript);
-            console.log(e.detail.transcript);
+            this.stop();
           }
         });
       },
@@ -91,12 +91,6 @@
           self.canBuzz = false;
           self.canAnswer = false;
         });
-      },
-      publish: {
-        hide: {
-          value: false,
-          reflect: true
-        }
       },
       close: function() {
         this.hide = !this.hide;
