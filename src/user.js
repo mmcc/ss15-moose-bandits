@@ -14,10 +14,10 @@ var User = {};
 // Game ID will come from the query params. If there isn't one there, one wasn't in the params.
 User.init = function(gameId) {
   gameId = User.currentGame(gameId);
-  var user = User.username();
 
-  if (!user) {
-    jquery('#board').html("<trebek-board data='"+ JSON.stringify(board) +"'></trebek-board>")
+  return {
+    gameId: gameId,
+    user: User.username()
   }
 }
 
