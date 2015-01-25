@@ -71,7 +71,7 @@ returnOrCreateGame(initialValues.gameId, function(err, gameId) {
 
       if (gameState.state === 'answer') {
         jquery('trebek-modal').remove();
-        jquery('body').append('<trebek-clue category="'+ gameState.question.category +'" value="'+ gameState.question.value +'" text="'+ gameState.question.question +'"></trebek-clue>');
+        jquery('body').append('<trebek-clue category="'+ gameState.question.category.replace(/"/g, '&quot;') +'" value="'+ gameState.question.value +'" text="'+ gameState.question.question.replace(/"/g, '&quot;') +'"></trebek-clue>');
       }
       console.log(gameState);
     });
