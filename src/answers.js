@@ -29,8 +29,13 @@ var whiteSimilarity = function(strA, strB) {
 };
 
 var isPosedAsAQuestion = function(userInput) {
-  var firstWord = userInput.split(' ')[0].toLowerCase();
-  var secondWord = userInput.split(' ')[1].toLowerCase()
+  var words = userInput.split(' ')
+  if (words.length < 1) {
+    return false;
+  }
+
+  var firstWord = words[0].toLowerCase();
+  var secondWord = words[1].toLowerCase()
   return !(firstWord.match(/(what|whats|where|wheres|who|whos)/) == null) &&
          !(secondWord.match(/^(is|are|was|were)/) == null);
 };
