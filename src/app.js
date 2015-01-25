@@ -23,7 +23,11 @@ returnOrCreateGame(initialValues.gameId, function(err, gameId) {
 
   //Start up a new server
   jeopardy.initServer(gameId, function(err, server){
-    if (err) return console.error(err);
+    if (err) {
+      showModal(err + ' - Reloading...');
+      resetAndReload();
+      return console.error(err);
+    }
     console.log(server.gameId)
 
     //This callback happens anytime the displayable "board" changes
@@ -34,7 +38,11 @@ returnOrCreateGame(initialValues.gameId, function(err, gameId) {
   });
 
   jeopardy.initClient(gameId, function(err, client) {
-    if (err) return console.error(err);
+    if (err) {
+      showModal(err + ' - Reloading...');
+      resetAndReload();
+      return console.error(err);
+    }
 
     client.loginUser("doot", function() {
 
@@ -60,6 +68,17 @@ function returnOrCreateGame(id, cb) {
   if (id) return cb(null, id);
 
   jeopardy.createGame(cb);
+}
+
+function showModal(text) {
+  jquery('body').append('<trebek-modal>'+ text +'</trebek-modal>');
+}
+
+function resetAndReload() {
+  setTimeout(function() {
+    localStorage.removeItem('currentGame');
+    window.location = window.location.origin;
+  }, 2000);
 }
 
 // Header buttons
