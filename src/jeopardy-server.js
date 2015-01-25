@@ -190,11 +190,7 @@
 
     gameLogic.child('turn').on('value', function(turn) {
       if (turn.exists()) {
-        playersRef.child(turn.val()).once('value', function(pd){
-          if (pd.exists()) {
-             publicState.child('turn').set(pd.val().name);
-          }
-        });
+        
       } else {
         playersRef.once('value', function(players){
           players.forEach(function(player){
@@ -217,12 +213,18 @@
             question: sLogic.question.question
           }
         }
-        var pubState = {
-          turn: sLogic.turn || null,
-          state: sLogic.state || null,
-          question: question
-        }
-        publicState.set(pubState);
+        var turn = null;
+        playersRef.child(sLogic.turn).once('value', function(pd){
+          if (pd.exists()) {
+             turn = pd.val().name;
+          }
+          var pubState = {
+            turn: turn || null,
+            state: sLogic.state || null,
+            question: question
+          }
+          publicState.set(pubState);
+        });
       }
     });
 
