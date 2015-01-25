@@ -69,8 +69,17 @@
   }
 
   JeopardyClient.prototype.selectQuestion = function(category, value, cb) {
-    //TODO: lock/authorize this
-    this.firebase.child('selectedQuestion').set({category: category, value: value}, cb);
+    var fb = this.firebase;
+    fb.child('publicState').once('value', function(pState){
+      if (pState.exists()){
+        var state = pState.val();
+        if (state.state == 'select' && auth && auth.uid == state.turn) {
+          console.log("Selecting: "+category+" "+value);
+          this.firebase.child('selectedQuestion').set({category: category, value: value}, cb);
+        }
+      }
+    })
+    
   }
 
   JeopardyClient.prototype.buzzIn = function() {
