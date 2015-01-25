@@ -88,6 +88,7 @@
     var playersRef = this.firebase.child('players');
     var playerDisplay = this.firebase.child('displayPlayers');
     var gameLogic = this.firebase.child('game');
+    var publicState = this.firebase.child('publicState');
 
     gameboardRef.on('value', function(data){
       if (data.exists()) {
@@ -120,13 +121,13 @@
       if (data.exists()){
         var state = data.val();
         switch (state) {
-          case 'waiting':
+          case 'select':
             break;
-          case 'question':
+          case 'answer':
             break;
         }
       } else {
-        data.ref().set('waiting');
+        data.ref().set('select');
       }
     });
 
@@ -140,6 +141,27 @@
             return true;
           });
         });
+      }
+    });
+
+    //set public state data
+    gameLogic.on('value', function(logicData) {
+      if(logicData.exists()){
+        var sLogic = logicData.val();
+        var question = null;
+        if (sLogic.state == 'answer' && sLogic.question != null) {
+          question = {
+            category: sLogic.question.category.title,
+            value: sLogic.question.value,
+            question: sLogic.question.question
+          }
+        }
+        var pubState = {
+          turn: sLogic.turn || null,
+          state: sLogic.state || null,
+          question: question
+        }
+        publicState.set(pubState);
       }
     });
   }

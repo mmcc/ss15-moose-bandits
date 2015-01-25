@@ -34,6 +34,10 @@ returnOrCreateGame(currentGame, function(err, gameId) {
     client.setDisplayPlayersCB(function(players){
       console.log(players);
     });
+
+    client.setGameStateCB(function(gameState){
+      console.log(gameState);
+    });
   });
 });
 
