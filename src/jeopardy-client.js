@@ -42,7 +42,7 @@
             if(auth.uid == game.turn){
               cb({state: 'select', turn: game.turn})
             } else {
-              cb({state: 'wait', turn: game.turn}})
+              cb({state: 'wait', turn: game.turn})
             }
             break;
           case 'answer':
