@@ -1,5 +1,6 @@
 (function() {
   var jservice = require('./jservice');
+  var answerChecker = require('./answers');
 
   function utf8_to_b64( str ) {
     return window.btoa(unescape(encodeURIComponent( str )));
@@ -90,6 +91,7 @@
     var gameLogic = this.firebase.child('game');
     var publicState = this.firebase.child('publicState');
     var qSelector = this.firebase.child('selectedQuestion');
+    var submissions = this.firebase.child('submissions');
     var buzzerTimeout = null;
     var questionTimeout = null;
 
@@ -132,6 +134,7 @@
             clearTimeout(questionTimeout);
             clearTimeout(buzzerTimeout);
             buzzerRef.remove();
+            submissions.remove();
             break;
           case 'answer':
             questionTimeout = setTimeout(function(){
@@ -142,6 +145,36 @@
       } else {
         data.ref().set('select');
       }
+    });
+
+    submissions.on('child_added', function(submission){
+      buzzerRef.child('lock').once('value', function(uidSS){
+        if (uidSS.exists() && uidSS.val() == submission.key()){
+          var answer = submission.val();
+          gameLogic.child('question').once('value', function(question){
+            var correct = false;
+            if (question.exists()){
+              correct = answerChecker.checkAnswer(answer, question.val().answer).correctAnswer;
+            }
+            var playerScore = playersRef.child(submission.key()).child('score');
+            var amt = 0;
+            if (correct) {
+              console.log("CORRECT!");
+              amt = question.val().value;
+            } else {
+              console.log("WRONG");
+              amt = -question.val().value;
+            }
+            playerScore.transaction(function(score){
+              return score += amt;
+            });
+
+          });
+          uidSS.ref().remove();
+        } else {
+          submission.ref().remove();
+        }
+      });
     });
 
     gameLogic.child('turn').on('value', function(turn) {

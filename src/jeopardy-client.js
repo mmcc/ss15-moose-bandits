@@ -92,7 +92,7 @@
   }
 
   JeopardyClient.prototype.submitAnswer = function(answer, cb) {
-
+    this.firebase.child('submissions').child(this.firebase.getAuth().uid).set(answer, cb);
   }
 
   module.exports = JeopardyClient;
