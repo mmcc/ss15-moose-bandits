@@ -1,0 +1,58 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<polymer-element name="trebek-contestant" attributes="name score host? answering?">
+  <template>
+    <style>
+      :host {
+        display: flex;
+        line-height: 0;
+        padding-right: 10px;
+        opacity: 0.6;
+        transition: opacity 400ms ease-in-out;
+      }
+
+      :host(:hover) {
+        opacity: 1;
+      }
+
+      :host p.contestant-name {
+        padding-right: 5px;
+      }
+
+      :host p.contestant-score {
+      }
+
+      :host p.hosting {
+        color: red;
+      }
+
+      :host p.answering {
+        text-shadow: 1px 1px red;
+      }
+
+      :host p.failing {
+        color: red;
+      }
+
+    </style>
+    <p class="{{ {hosting: isHosting, answering: isAnswering} | tokenList}} contestant-name">{{name}}</p>
+    <p class="{{ {failing: isFailing} | tokenList}} contestant-score">{{score}}</p>
+  </template>
+  <script>
+    Polymer({
+      ready: function() {
+        this.isHosting = this.getAttribute('host?');
+        this.isAnswering = this.getAttribute('answering?');
+        this.isFailing = this.scoreBelowZero();
+
+        this.score = this.computeScore();
+    },
+    computeScore: function() {
+      return '$' + this.getAttribute('score');
+    },
+    scoreBelowZero: function() {
+      return this.getAttribute('score') < 0;
+    },
+    });
+  </script>
+</polymer-element>

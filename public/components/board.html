@@ -1,0 +1,86 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<polymer-element name="trebek-board" attributes="status data">
+  <template>
+    <style>
+      :host table {
+        height: 100%;
+        width: 100%;
+        table-layout: fixed;
+        background-color: #000;
+      }
+
+      :host table th, td {
+        vertical-align: middle;
+        border: 8px solid #000;
+        background-color: #0009D4;
+      }
+      :host table th {
+        padding: 20px;
+        color: #fff;
+        border-bottom: 12px solid #000;
+        font-size: 125%;
+      }
+      :host table td {
+        text-shadow: 3px 3px black;
+        text-align: center;
+        color: #FFF382;
+        font-weight: bold;
+        font-size: 200%;
+      }
+    </style>
+
+    <table>
+      <thead>
+        <tr>
+          <template repeat="{{category in categories}}">
+            <th>{{category}}</th>
+          </template>
+        </tr>
+      </thead>
+
+      <tbody>
+        <template repeat="{{row in rows}}">
+          <tr>
+            <template repeat="{{item in row}}">
+              <td>
+                <template if="{{item.status == 'active'}}">${{item.value}}</template>
+              </td>
+            </template>
+          </tr>
+        </template>
+        </tr>
+      </tbody>
+
+      </tbody>
+    </table>
+  </template>
+  <script>
+    Polymer({
+      status: 'active', // Default value
+      created: function() {
+        this.data = {};
+      },
+      ready: function() {
+        var data = this.data;
+
+        if (Object.keys(data).length === 0) return;
+
+        // pop the first row off, which is categories, then the rest are the rows.
+        this.categories = data.shift();
+        this.rows = data;
+      },
+      // dataChanged: function() {
+      //   var data = this.data;
+      //
+      //   console.log(data);
+      //
+      //   // pop the first row off, which is categories, then the rest are the rows.
+      //   this.categories = data.shift();
+      //   this.rows = data;
+      //
+      //   console.log(this);
+      // }
+    });
+  </script>
+</polymer-element>
