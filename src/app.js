@@ -50,6 +50,7 @@ returnOrCreateGame(initialValues.gameId, function(err, gameId) {
     });
 
     client.setDisplayPlayersCB(function(players){
+      if (!players || players.length === 0) return;
       jquery('#contestants').html('');
       players.forEach(function(player) {
         jquery('#contestants').append('<trebek-contestant name="'+ player.name +'" score="'+ player.score +'"></trebek-contestant>');
