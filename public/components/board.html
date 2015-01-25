@@ -1,0 +1,47 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<polymer-element name="trebek-board" attributes="status data">
+  <template>
+    <style>
+      :host {}
+    </style>
+
+    <table>
+      <thead>
+        <tr>
+          <template repeat="{{category in categories}}">
+            <th>{{category}}</th>
+          </template>
+        </tr>
+      </thead>
+
+      <tbody>
+        <template repeat="{{row in rows}}">
+          <tr>
+            <template repeat="{{item in row}}">
+              <td>{{item.value}}</td>
+            </template>
+          </tr>
+        </template>
+        </tr>
+      </tbody>
+
+      </tbody>
+    </table>
+  </template>
+  <script>
+    Polymer({
+      status: 'active', // Default value
+      created: function() {
+        this.data = {};
+      },
+      ready: function() {
+        var data = this.data;
+
+        // pop the first row off, which is categories, then the rest are the rows.
+        this.categories = data.shift();
+        this.rows = data;
+      }
+    });
+  </script>
+</polymer-element>

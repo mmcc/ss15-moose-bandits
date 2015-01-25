@@ -4,13 +4,17 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <title>Your Website</title>
 
+  <script src="bower_components/webcomponentsjs/webcomponents.min.js"></script>
+
+  <link rel="import" href="components/board.html">
   <link rel="import" href="components/modal.html">
+
   <link rel="stylesheet" href="/styles/main.css" type="text/css">
 </head>
 <body>
 
   <%- yield %>
 
-  <script src="/js/bundle.js"></script>
+  <!-- <script src="/js/bundle.js"></script> -->
 </body>
 </html>
