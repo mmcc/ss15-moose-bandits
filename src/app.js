@@ -69,7 +69,7 @@ returnOrCreateGame(initialValues.gameId, function(err, gameId) {
       if (gameState.state === 'wait') {
         clearInstruction();
         jquery('trebek-clue').remove();
-        showInstruction('<p>Please wait for '+ gameState.turn +' to select an answer.</p>');
+        showInstruction('<p>Please wait for '+ gameState.user +' to select an answer.</p>');
       }
 
       if (gameState.state === 'answer') {
