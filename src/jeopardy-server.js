@@ -236,5 +236,12 @@
     });
   }
 
+  JeopardyClient.prototype.setDisplayPlayersCB = function(cb) {
+    var displayUsers = this.firebase.child('displayPlayers');
+    displayUsers.on('value', function(data){
+        cb(data.val());
+    });
+  }
+
   module.exports = JeopardyServer;
 })()
