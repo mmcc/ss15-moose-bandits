@@ -1,5 +1,6 @@
-var jquery = require('jquery');
+var $ = require('jquery');
 var jservice = require('./jservice');
+var vox = require('./vox');
 var answers = require('./answers');
 var utils = require('./utils');
 var Jeopardy = require('./jeopardy');
