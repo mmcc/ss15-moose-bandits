@@ -9,9 +9,10 @@
 
   JeopardyClient.prototype.loginUser = function(userName, cb){
     this.userName = userName;
-    var userObj = {};
-    userObj[userName] = this.authData;
-    this.firebase.child('players').push(userObj, cb)
+    var userObj = {name: userName, active: true, turn: false};
+    var playerRef = this.firebase.child('players').child(this.authData.uid)
+    playerRef.child('active').onDisconnect().set(false);
+    this.firebase.child('players').child(this.authData.uid).update(userObj, cb);
   }
 
   JeopardyClient.prototype.setDisplayBoardCB = function(cb) {
@@ -24,11 +25,9 @@
   }
 
   JeopardyClient.prototype.setDisplayPlayersCB = function(cb) {
-    var displayUsers = this.firebase.child('displayUsers');
+    var displayUsers = this.firebase.child('displayPlayers');
     displayUsers.on('value', function(data){
-      if(data.exists()) {
         cb(data.val());
-      }
     });
   }
 

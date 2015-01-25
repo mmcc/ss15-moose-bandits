@@ -30,6 +30,10 @@ returnOrCreateGame(currentGame, function(err, gameId) {
     client.loginUser("doot", function() {
 
     });
+
+    client.setDisplayPlayersCB(function(players){
+      console.log(players);
+    });
   });
 });
 

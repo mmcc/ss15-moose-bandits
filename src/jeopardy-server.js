@@ -37,6 +37,27 @@
     return displayData;
   }
 
+  function playersToDisplay(pd) {
+    players = []
+    for (var player in pd) {
+      if (pd.hasOwnProperty(player)) {
+        var playerInfo = pd[player];
+        if (playerInfo.active == true){
+          var pDisplay = {
+            name: playerInfo.name,
+            score: playerInfo.score,
+            turn: playerInfo.turn
+          };
+          if (pDisplay.score === null || pDisplay.score === undefined) {
+            pDisplay.score = 0;
+          }
+          players.push(pDisplay);
+        }
+      }
+    }
+    return players;
+  }
+
   JeopardyServer.prototype.register = function(callback){
     var masterRef = this.firebase.child('master');
     var uid = this.authData.uid;
@@ -64,7 +85,8 @@
     var gameboardRef = this.firebase.child('gameBoard');
     var displayBoardRef = this.firebase.child('displayBoard');
     var buzzerRef = this.firebase.child('buzzer');
-
+    var playersRef = this.firebase.child('players');
+    var playerDisplay = this.firebase.child('displayPlayers');
 
     gameboardRef.on('value', function(data){
       if (data.exists()) {
@@ -82,6 +104,17 @@
     buzzerRef.on('value', function(data){
       
     });
+
+    //Set initial player data
+    playersRef.on('child_added', function(child){
+      child.ref().update({score: 0});
+    });
+
+    //Convert player data to display data
+    playersRef.on('value', function(playerData){
+      playerDisplay.set(playersToDisplay(playerData.val()));
+    });
+
   }
 
   JeopardyServer.prototype.setDisplayBoardCB = function(cb) {
