@@ -96,11 +96,11 @@ function returnOrCreateGame(id, cb) {
 
 function showInstruction(text) {
   console.log(text);
-  jquery('#instructions').html(text);
+  jquery('#instructions').html(text).show();
 }
 
 function clearInstruction() {
-  jquery('#instructions').html('');
+  jquery('#instructions').html('').hide();
 }
 
 function resetAndReload() {
