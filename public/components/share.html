@@ -3,12 +3,25 @@
 <polymer-element name="trebek-share" attributes="gameId">
   <template>
     <style>
+      h3 { margin-bottom: 10px }
+      p { font-size: 50%; padding: 0; }
+      input {
+        padding: 5px 10px;
+        width: 50%;
+        text-align: center;
+        font-size: 50%;
+
+        /* God forgive this CSS monstrosity */
+        display: block;
+        margin: 0 auto;
+      }
     </style>
 
     <trebek-modal hidden?="{{hide}}">
-      <p>Share this game with a friend!</p>
+      <h3>Share this game with a friend!</h3>
+      <p>Simply share the url below with them so they can join in</p>
       <input type="url" value="{{gameId}}">
-      <button on-tap="{{close}}">Close</button>
+      <trebek-button on-tap="{{close}}" type="danger">Close</button>
     </trebek-modal>
   </template>
 
