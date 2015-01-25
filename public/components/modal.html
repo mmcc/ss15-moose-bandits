@@ -1,9 +1,9 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
 
-<polymer-element name="trebek-modal" noscript>
+<polymer-element name="trebek-modal" attributes="closeable">
   <template>
     <style>
-      :host {
+      :host .overlay {
         position: absolute;
         top: 0;
         left: 0;
@@ -34,10 +34,33 @@
       }
     </style>
 
-    <div class="box">
-      <div class="content">
-        <content></content>
+    <div class="overlay" hidden?="{{hide}}">
+      <div class="box" hidden?="{{hide}}">
+        <div class="content">
+          <content></content>
+          <template if="{{closeable}}">
+            <trebek-button on-tap="{{close}}" type="danger">Close</trebek-button>
+          </template>
+        </div>
       </div>
     </div>
   </template>
+
+  <script>
+    Polymer({
+      publish: {
+        hide: {
+          value: false,
+          reflect: true
+        },
+        closeable: {
+          value: false,
+          reflect: true
+        }
+      },
+      close: function() {
+        this.hide = !this.hide;
+      }
+    });
+  </script>
 </polymer-element>
