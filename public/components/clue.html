@@ -81,7 +81,7 @@
         User.events.on('owned', function() {
           self.canAnswer = true;
           self.canBuzz = false;
-          # update timer
+          // update timer
           var seconds = 10;
           setInterval(function() {
             self.$.timer.innerHTML = seconds;
