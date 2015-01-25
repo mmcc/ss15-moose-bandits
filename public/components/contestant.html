@@ -1,29 +1,29 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
 
-<polymer-element name="trebek-contestant" attributes="name score">
+<polymer-element name="trebek-contestant" attributes="name score host?">
   <template>
     <style>
-      .contestant-display {
+      :host {
         display: flex;
         line-height: 0;
         padding-right: 10px;
+        opacity: 0.6;
+        transition: opacity 400ms ease-in-out;
       }
 
-      .contestant-name {
-          padding-right: 5px;
+      :host(:hover) {
+        opacity: 1;
       }
 
-      .contestant-score {
+      :host p.contestant-name {
+        padding-right: 5px;
       }
     </style>
-
-    <div class="contestant-display">
-      <p class="contestant-name">{{name}}</p>
-      <p class="contestant-score">${{score}}</p>
-    </div>
+    <p class="contestant-name">{{name}}</p>
+    <p class="contestant-score">${{score}}</p>
   </template>
   <script>
-    Polymer({
+    Polymer('trebek-contestant', {
     });
   </script>
 </polymer-element>
