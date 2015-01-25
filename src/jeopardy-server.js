@@ -114,7 +114,7 @@
         buzzerTimeout = setTimeout(function(){
           var player = data.val();
           gameLogic.child('question').child('value').once('value', function(value){
-            if(value.exist()){
+            if(value.exists()){
               playersRef.child(player).child('score').transaction(function(score){
                 return score -= value.val();
               });
@@ -190,7 +190,11 @@
 
     gameLogic.child('turn').on('value', function(turn) {
       if (turn.exists()) {
-
+        playersRef.child(turn.val()).once('value', function(pd){
+          if (pd.exists()) {
+             publicState.child('turn').set(pd.val().name);
+          }
+        });
       } else {
         playersRef.once('value', function(players){
           players.forEach(function(player){
