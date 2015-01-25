@@ -70,6 +70,7 @@
 
   JeopardyClient.prototype.selectQuestion = function(category, value, cb) {
     var fb = this.firebase;
+    var auth = fb.getAuth();
     fb.child('publicState').once('value', function(pState){
       if (pState.exists()){
         var state = pState.val();
