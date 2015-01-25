@@ -1,0 +1,33 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<polymer-element name="trebek-clue" attributes="category value text">
+  <template>
+    <style>
+    </style>
+
+    <trebek-modal hidden?="{{hide}}">
+      <h1>{{category}} ${{value}}</h1>
+      <p>{{text}}</p>
+      <footer>
+        <p>OK</p>
+      </footer>
+    </trebek-modal>
+  </template>
+
+  <script>
+    Polymer({
+      ready: function() {
+        console.log(this.text);
+      },
+      publish: {
+        hide: {
+          value: false,
+          reflect: true
+        }
+      },
+      close: function() {
+        this.hide = !this.hide;
+      }
+    });
+  </script>
+</polymer-element>
