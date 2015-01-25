@@ -1,3 +1,10 @@
 #header-text {
+  // flex: auto;
+}
+
+#instructions {
   flex: auto;
+  color: $danger;
+  line-height: 30px;
+  margin: 0 10px;
 }
