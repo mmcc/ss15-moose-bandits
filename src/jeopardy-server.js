@@ -192,7 +192,7 @@
       if (turn.exists()) {
         playersRef.child(turn.val()).once('value', function(pd){
           if (pd.exists()) {
-             publicState.child('turn').set(pd.val().name);
+             publicState.child('turn').set(pd.val()['name']);
           }
         });
       } else {
