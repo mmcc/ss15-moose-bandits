@@ -61,6 +61,15 @@ returnOrCreateGame(initialValues.gameId, function(err, gameId) {
       if (gameState.state === 'select') {
         showModal('<p>Please select the next answer.</p>', true);
       }
+
+      if (gameState.state === 'wait') {
+        showModal('<p>Please select the next answer.</p>', true);
+      }
+
+      if (gameState.state === 'answer') {
+        jquery('trebek-modal').remove();
+        showModal('<h3>'+ gameState.category +' for $'+ gameState.value +'</h3><p>'+ gameState.question +'</p>');
+      }
       console.log(gameState);
     });
 
