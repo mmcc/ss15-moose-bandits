@@ -94,6 +94,10 @@ function returnOrCreateGame(id, cb) {
   jeopardy.createGame(cb);
 }
 
+function showModal(text, close) {
+  jquery('body').append('<trebek-modal>'+ text +'</trebek-modal>');
+}
+
 function showInstruction(text) {
   console.log(text);
   jquery('#instructions').html(text).show();
