@@ -44,11 +44,15 @@ returnOrCreateGame(initialValues.gameId, function(err, gameId) {
       return console.error(err);
     }
 
-    client.loginUser("doot", function() {
+    client.loginUser(user.username(), function() {
 
     });
 
     client.setDisplayPlayersCB(function(players){
+      jquery('#contestants').html('');
+      players.forEach(function(player) {
+        jquery('#contestants').append('<trebek-contestant name="'+ player.name +'" score="'+ player.score +'"></trebek-contestant>');
+      });
       console.log(players);
     });
 
@@ -90,6 +94,6 @@ jquery('#username').click(function(e) {
   jquery('trebek-user').attr('user', user.username()).removeAttr('hide');
 })
 jquery('#share').click(function(e) {
-  var shareUrl = window.location.origin + '?current-game='+ user.currentGame;
+  var shareUrl = window.location.origin + '?current-game='+ user.currentGame();
   jquery('trebek-share').attr('gameId', shareUrl).removeAttr('hide');
 });

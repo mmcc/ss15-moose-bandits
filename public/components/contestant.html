@@ -4,8 +4,7 @@
   <template>
     <style>
       :host {
-        display: flex;
-        line-height: 0;
+        line-height: 30px;
         padding-right: 10px;
         opacity: 0.6;
         transition: opacity 400ms ease-in-out;
@@ -17,9 +16,11 @@
 
       :host p.contestant-name {
         padding-right: 5px;
+        display: inline;
       }
 
       :host p.contestant-score {
+        display: inline;
       }
 
       :host p.hosting {
@@ -36,23 +37,21 @@
 
     </style>
     <p class="{{ {hosting: isHosting, answering: isAnswering} | tokenList}} contestant-name">{{name}}</p>
-    <p class="{{ {failing: isFailing} | tokenList}} contestant-score">{{score}}</p>
+    <p class="{{ {failing: isFailing} | tokenList}} contestant-score">${{score}}</p>
   </template>
   <script>
     Polymer({
+      created: function() {
+        this.score = 0;
+      },
       ready: function() {
         this.isHosting = this.getAttribute('host?');
         this.isAnswering = this.getAttribute('answering?');
         this.isFailing = this.scoreBelowZero();
-
-        this.score = this.computeScore();
-    },
-    computeScore: function() {
-      return '$' + this.getAttribute('score');
-    },
-    scoreBelowZero: function() {
-      return this.getAttribute('score') < 0;
-    },
+      },
+      scoreBelowZero: function() {
+        return this.getAttribute('score') < 0;
+      },
     });
   </script>
 </polymer-element>
