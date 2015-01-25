@@ -87,6 +87,7 @@
     var buzzerRef = this.firebase.child('buzzer');
     var playersRef = this.firebase.child('players');
     var playerDisplay = this.firebase.child('displayPlayers');
+    var gameLogic = this.firebase.child('game');
 
     gameboardRef.on('value', function(data){
       if (data.exists()) {
@@ -115,6 +116,32 @@
       playerDisplay.set(playersToDisplay(playerData.val()));
     });
 
+    gameLogic.child('state').on('value', function(data){
+      if (data.exists()){
+        var state = data.val();
+        switch (state) {
+          case 'waiting':
+            break;
+          case 'question':
+            break;
+        }
+      } else {
+        data.ref().set('waiting');
+      }
+    });
+
+    gameLogic.child('turn').on('value', function(turn) {
+      if (turn.exists()) {
+
+      } else {
+        playersRef.once('value', function(players){
+          players.forEach(function(player){
+            turn.ref().set(player.key())
+            return true;
+          });
+        });
+      }
+    });
   }
 
   JeopardyServer.prototype.setDisplayBoardCB = function(cb) {

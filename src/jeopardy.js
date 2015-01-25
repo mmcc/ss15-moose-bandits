@@ -23,16 +23,26 @@
   Jeopardy.prototype._joinGame = function(gameId, callback){
     var firebase = this.firebase;
     var gameRef = firebase.child('games').child(gameId)
+
+    function authSuccess(authData) {
+      opts = {
+        gameId : gameId,
+        firebase: gameRef,
+        authData: authData
+      };
+      callback(null, opts);
+    }
+
     gameRef.once('value', function(gameData){
       if(gameData.exists()) {
-        firebase.authAnonymously(function(err, authData){
-          opts = {
-            gameId : gameId,
-            firebase: gameRef,
-            authData: authData
-          };
-          callback(err, opts);
-        });
+        if (firebase.getAuth()){
+          authSuccess(firebase.getAuth());
+        } else {
+          firebase.authAnonymously(function(err, authData){
+            if (err) {callback("Auth Failed"); return}
+            authSuccess(authData);
+          });
+        }
       } else {
         callback("Game does not exist");
       }
