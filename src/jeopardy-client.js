@@ -14,11 +14,14 @@
     this.authData = options.authData;
   }
 
-  JeopardyClient.prototype.printGameId = function() {
-    console.log(this.gameId);
+  JeopardyClient.prototype.loginUser = function(userName, cb){
+    this.userName = userName;
+    var userObj = {};
+    userObj[userName] = this.authData;
+    this.firebase.child('players').push(userObj, cb)
   }
 
-    JeopardyClient.prototype.setDisplayBoardCB = function(cb) {
+  JeopardyClient.prototype.setDisplayBoardCB = function(cb) {
     var displayBoardRef = this.firebase.child('displayBoard');
     displayBoardRef.on('value', function(data){
       if(data.exists()) {
@@ -30,6 +33,15 @@
           }
         }
         cb(displayBoard);
+      }
+    });
+  }
+
+  JeopardyClient.prototype.setDisplayPlayersCB = function(cb) {
+    var displayUsers = this.firebase.child('displayUsers');
+    displayUsers.on('value', function(data){
+      if(data.exists()) {
+        cb(data.val());
       }
     });
   }

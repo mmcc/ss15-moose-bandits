@@ -30,8 +30,15 @@ jeopardy.createGame(function(err, gameId){
     //This callback happens anytime the displayable "board" changes
     //The callback param is an object ~ {category1: {100: {status: 'active'}, 200: {status: 'done'}}}
     server.setDisplayBoardCB(function(board){
-      console.log(board);
+      //console.log(JSON.stringify(board));
     })
+  });
+
+  jeopardy.initClient(gameId, function(err, client) {
+    if(err) {console.log(err); return;}
+    client.loginUser("doot", function() {
+
+    });
   });
 });
 
