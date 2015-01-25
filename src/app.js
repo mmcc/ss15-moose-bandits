@@ -82,6 +82,10 @@ function resetAndReload() {
 }
 
 // Header buttons
+jquery('#new-game').click(function(e) {
+  showModal('Creating a new game and reloading...');
+  resetAndReload();
+})
 jquery('#username').click(function(e) {
   jquery('trebek-user').attr('user', user.username()).removeAttr('hide');
 })
