@@ -43,7 +43,9 @@
         <template repeat="{{row in rows}}">
           <tr>
             <template repeat="{{item in row}}">
-              <td>${{item.value}}</td>
+              <td>
+                <template if="{{item.status == 'active'}}">${{item.value}}</template>
+              </td>
             </template>
           </tr>
         </template>
@@ -61,12 +63,10 @@
       },
       ready: function() {
         var data = this.data;
-        console.log(data);
 
         if (Object.keys(data).length === 0) return;
 
         // pop the first row off, which is categories, then the rest are the rows.
-        console.log(data);
         this.categories = data.shift();
         this.rows = data;
       },
