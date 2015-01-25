@@ -40,13 +40,13 @@
         switch (game.state) {
           case 'select':
             if(auth.uid == game.turn){
-              cb({state: 'select', turn: game.turn})
+              cb({state: 'select', turn: game.user})
             } else {
-              cb({state: 'wait', turn: game.turn})
+              cb({state: 'wait', turn: game.user})
             }
             break;
           case 'answer':
-            cb({state: 'answer', question: game.question, turn: game.turn})
+            cb({state: 'answer', question: game.question, turn: game.user})
             break;
         }
       };
