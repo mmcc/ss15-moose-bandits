@@ -58,7 +58,9 @@ returnOrCreateGame(initialValues.gameId, function(err, gameId) {
     });
 
     client.setGameStateCB(function(gameState){
-      
+      if (gameState.state === 'select') {
+        showModal('<p>Please select the next answer.</p>', true);
+      }
       console.log(gameState);
     });
 
@@ -76,8 +78,9 @@ function returnOrCreateGame(id, cb) {
   jeopardy.createGame(cb);
 }
 
-function showModal(text) {
-  jquery('body').append('<trebek-modal>'+ text +'</trebek-modal>');
+function showModal(text, closeable) {
+  if (closeable) var close = "closeable";
+  jquery('body').append('<trebek-modal '+ close +'>'+ text +'</trebek-modal>');
 }
 
 function resetAndReload() {
