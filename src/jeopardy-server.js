@@ -140,7 +140,7 @@
           case 'answer':
             questionTimeout = setTimeout(function(){
               gameLogic.child('state').set('select');
-            });
+            }, 30);
             break;
         }
       } else {
