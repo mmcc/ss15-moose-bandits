@@ -10,29 +10,3 @@
     width: 100%;
   }
 }
-
-.board {
-  height: 100%;
-  width: 100%;
-  table-layout: fixed;
-  background-color: $panel-border;
-}
-
-.board th, td {
-  vertical-align: middle;
-  border: 8px solid $panel-border;
-  background-color: $panel-bg;
-}
-.board th {
-  padding: 20px;
-  color: $panel-category-color;
-  border-bottom: 12px solid $panel-border;
-  font-size: 125%;
-}
-.board td {
-  text-shadow: 3px 3px black;
-  text-align: center;
-  color: $panel-amount-color;
-  font-weight: bold;
-  font-size: 200%;
-}
