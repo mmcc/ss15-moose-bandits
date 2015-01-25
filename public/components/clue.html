@@ -15,23 +15,80 @@
     <trebek-modal hidden?="{{hide}}">
       <h1>{{category}} ${{value}}</h1>
       <p>{{text}}</p>
-      <speech-mic id="speechMic"></speech-mic>
-      <p class="{{ {final: isFinal} | tokenList}}" id="transcript"></p>
+
+      <template if="{{canBuzz}}">
+        <trebek-button id="buzz" on-click={{buzzIn}}>Buzz In</trebek-button>
+      </template>
+
+      <speech-mic hidden?={{!canAnswer}} id="speechMic"></speech-mic>
+
+      <template if="{{!canBuzz && !canAnswer && !didFail}}">
+        <p>Someone else is attempting...</p>
+      </template>
+
+      <template if="{{didFail}}">
+        <p>Time's up or you got it wrong, but either way...</p>
+      </template>
+
+      <p id="transcript"></p>
     </trebek-modal>
   </template>
 
   <script>
     Polymer({
-      ready: function() {
-        self.isFinal = true;
+      publish: {
+        canAnswer: {
+          value: false,
+          reflect: true
+        },
+        canBuzz: {
+          value: true,
+          reflect: true
+        },
+        didFail: {
+          value: false,
+          reflect: true
+        }
+      },
+      created: function() {
+        this.canBuzz = true;
+      },
+      buzzIn: function(event, detail, sender) {
+        User.client.buzzIn();
+      },
+      canAnswerChanged: function(oldVal, newVal) {
+        console.log(oldVal, newVal);
+
+        if (!newVal) return;
+
         var transcript = this.$.transcript;
         this.$.speechMic.addEventListener('speech-mic-result', function(e) {
           transcript.innerHTML = e.detail.transcript;
           if (e.detail.isFinal) {
-            self.isFinal = true;
             transcript.innerHTML = e.detail.transcript;
             console.log(e.detail.transcript);
           }
+        });
+      },
+      ready: function() {
+        var self = this;
+
+        User.events.on('owned', function() {
+          self.canAnswer = true;
+          self.canBuzz = false;
+        });
+        User.events.on('locked', function() {
+          self.canAnswer = false;
+          self.canBuzz = false;
+        });
+        User.events.on('open', function() {
+          self.canBuzz = true;
+          self.canAnswer = false;
+        });
+        User.events.on('failed', function() {
+          self.didFail = true;
+          self.canBuzz = false;
+          self.canAnswer = false;
         });
       },
       publish: {
