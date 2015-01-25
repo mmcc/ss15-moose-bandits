@@ -46,11 +46,17 @@
             }
             break;
           case 'answer':
-            cb({state: 'answer', question: gameData.question})
+            cb({state: 'answer', question: game.question})
             break;
         }
       };
     });
+  }
+
+
+  JeopardyClient.prototype.selectQuestion = function(category, value, cb) {
+    //TODO: lock/authorize this
+    this.firebase.child('selectedQuestion').set({category: category, value: value}, cb);
   }
 
   JeopardyClient.prototype.buzzIn = function() {

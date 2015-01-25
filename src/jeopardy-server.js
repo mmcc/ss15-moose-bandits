@@ -27,7 +27,7 @@
           if (catData.hasOwnProperty(clue)){
             if (displayData[i] == null) {displayData[i] = []}
             var clueData = catData[clue];
-            var clueObj = {value: clueData.value, status: 'active'}
+            var clueObj = {value: clueData.value, status: clueData.status}
             displayData[i].push(clueObj)
             i++;
           }
@@ -89,6 +89,7 @@
     var playerDisplay = this.firebase.child('displayPlayers');
     var gameLogic = this.firebase.child('game');
     var publicState = this.firebase.child('publicState');
+    var qSelector = this.firebase.child('selectedQuestion');
 
     gameboardRef.on('value', function(data){
       if (data.exists()) {
@@ -162,6 +163,21 @@
           question: question
         }
         publicState.set(pubState);
+      }
+    });
+
+    qSelector.on('value', function(selection){
+      if (selection.exists()) {
+        var s = selection.val();
+        gameboardRef.child(utf8_to_b64(s.category)).child(s.value).once('value', function(question){
+          if (question.exists()) {
+            var q = question.val();
+            if (q.status == 'active') {
+              gameLogic.update({question: q, state: 'answer'});
+              question.ref().child('status').set('done')
+            }
+          }
+        });
       }
     });
   }

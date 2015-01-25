@@ -58,6 +58,7 @@ var generateClues = function(category, callback) {
 
     while (Object.keys(cluesMap).length != 5) {
       var clue = data[Math.floor(Math.random() * data.length)];
+      clue.status = 'active';
       if (clue.value && clue.value <= 500) {
         cluesMap[clue.value] = clue;
       }
