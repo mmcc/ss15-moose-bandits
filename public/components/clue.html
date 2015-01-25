@@ -66,6 +66,7 @@
           transcript.innerHTML = e.detail.transcript;
           if (e.detail.isFinal) {
             transcript.innerHTML = e.detail.transcript;
+            User.client.submitAnswer(e.detail.transcript);
             console.log(e.detail.transcript);
           }
         });
