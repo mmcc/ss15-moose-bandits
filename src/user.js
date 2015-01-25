@@ -43,7 +43,7 @@ User.username = function(username) {
 
   // check to see if there is a username in localstorage
   // If there isn't generate them a random one.
-  var user = localStorage.getItem('username') || Beginning.username("TurdFerguson" + utils.randomInt(0,10000));
+  var user = localStorage.getItem('username') || User.username("TurdFerguson" + utils.randomInt(0,10000));
 
   return user;
 };
