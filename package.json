@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/staticshowdown/ss15-moose-bandits",
   "devDependencies": {
+    "event-emitter": "^0.3.2",
     "firebase": "^2.1.1",
     "grunt": "^0.4.5",
     "grunt-browserify": "^3.3.0",

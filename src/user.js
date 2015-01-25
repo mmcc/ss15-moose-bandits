@@ -1,6 +1,9 @@
+var ee = require('event-emitter')({});
 var utils = require('./utils');
 
 var User = {};
+
+User.events = ee
 
 // When we initialize a user, we should:
 // 1. Check for a game

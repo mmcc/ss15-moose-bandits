@@ -1,4 +1,5 @@
 var jquery = require('jquery');
+
 var jservice = require('./jservice');
 var vox = require('./vox');
 var answers = require('./answers');
@@ -12,7 +13,6 @@ jeopardy = new Jeopardy("https://moose-bandits.firebaseio.com/");
 var currentGame = utils.getQueryParams()['current-game'];
 
 var initialValues = user.init(currentGame);
-console.log(initialValues);
 
 // If there is a current game, use that when init-ing.
 // TODO: Replace this with a check for whether or not this should just be a client
@@ -77,7 +77,7 @@ returnOrCreateGame(initialValues.gameId, function(err, gameId) {
     });
 
     client.setBuzzerLockCB(function(lockstate){
-      console.log(lockstate);
+      user.events.emit(lockstate);
     });
   });
 });
