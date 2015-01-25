@@ -16,6 +16,12 @@ function getQueryParams() {
   return paramsObj;
 }
 
+// Just give me a random integer between two numbers.
+function randomInt(min, max) {
+  return Math.floor(Math.random() * (max - min)) + min;
+}
+
 module.exports = {
-  getQueryParams: getQueryParams
+  getQueryParams: getQueryParams,
+  randomInt: randomInt
 };
