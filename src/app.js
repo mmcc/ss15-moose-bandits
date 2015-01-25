@@ -60,17 +60,20 @@ returnOrCreateGame(initialValues.gameId, function(err, gameId) {
 
     client.setGameStateCB(function(gameState){
       if (gameState.state === 'select') {
+        clearInstruction();
         jquery('trebek-clue').remove();
         jquery('trebek-modal').remove();
-        showModal('<p>Please select the next answer.</p>', true);
+        showInstruction('<p>Please select the next answer!</p>');
       }
 
       if (gameState.state === 'wait') {
+        clearInstruction();
         jquery('trebek-clue').remove();
-        showModal('<p>Please wait for '+ gameState.turn +' to select an answer.</p>');
+        showInstruction('<p>Please wait for '+ gameState.turn +' to select an answer.</p>');
       }
 
       if (gameState.state === 'answer') {
+        clearInstruction();
         jquery('trebek-modal').remove();
         jquery('body').append('<trebek-clue category="'+ gameState.question.category.replace(/"/g, '&quot;') +'" value="'+ gameState.question.value +'" text="'+ gameState.question.question.replace(/"/g, '&quot;') +'"></trebek-clue>');
       }
@@ -91,9 +94,13 @@ function returnOrCreateGame(id, cb) {
   jeopardy.createGame(cb);
 }
 
-function showModal(text, closeable) {
-  if (closeable) var close = "closeable";
-  jquery('body').append('<trebek-modal '+ close +'>'+ text +'</trebek-modal>');
+function showInstruction(text) {
+  console.log(text);
+  jquery('#instructions').html(text);
+}
+
+function clearInstruction() {
+  jquery('#instructions').html('');
 }
 
 function resetAndReload() {
