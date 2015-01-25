@@ -63,12 +63,12 @@ returnOrCreateGame(initialValues.gameId, function(err, gameId) {
       }
 
       if (gameState.state === 'wait') {
-        showModal('<p>Please select the next answer.</p>', true);
+        showModal('<p>Please wait for a user to select an answer.</p>');
       }
 
       if (gameState.state === 'answer') {
         jquery('trebek-modal').remove();
-        showModal('<h3>'+ gameState.category +' for $'+ gameState.value +'</h3><p>'+ gameState.question +'</p>');
+        showModal('<h3>'+ gameState.question.category +' for $'+ gameState.question.value +'</h3><p>'+ gameState.question.question +'</p>');
       }
       console.log(gameState);
     });
