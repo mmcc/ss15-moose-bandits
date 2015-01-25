@@ -22,6 +22,10 @@
 
       <speech-mic hidden?={{!canAnswer}} id="speechMic"></speech-mic>
 
+      <div id="timer" hidden?={{!canAnswer}}>
+        <p>you better hurry...</p>
+      </div>
+
       <template if="{{!canBuzz && !canAnswer && !didFail}}">
         <p>Someone else is attempting...</p>
       </template>
@@ -77,6 +81,15 @@
         User.events.on('owned', function() {
           self.canAnswer = true;
           self.canBuzz = false;
+          # update timer
+          var seconds = 10;
+          setInterval(function() {
+            self.$.timer.innerHTML = seconds;
+            seconds--;
+            if seconds < 0 {
+              seconds = 10;
+            }
+          }, 1000);
         });
         User.events.on('locked', function() {
           self.canAnswer = false;
