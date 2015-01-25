@@ -1,0 +1,44 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<polymer-element name="trebek-share" attributes="gameId">
+  <template>
+    <style>
+      h3 { margin-bottom: 10px }
+      p { font-size: 50%; padding: 0; }
+      input {
+        padding: 5px 10px;
+        width: 50%;
+        text-align: center;
+        font-size: 50%;
+
+        /* God forgive this CSS monstrosity */
+        display: block;
+        margin: 0 auto;
+      }
+    </style>
+
+    <trebek-modal hidden?="{{hide}}">
+      <h3>Share this game with a friend!</h3>
+      <p>Simply share the url below with them so they can join in</p>
+      <input type="url" value="{{gameId}}">
+      <trebek-button on-tap="{{close}}" type="danger">Close</button>
+    </trebek-modal>
+  </template>
+
+  <script>
+    Polymer({
+      publish: {
+        hide: {
+          value: true,
+          reflect: true
+        }
+      },
+      creates: function() {
+        this.gameId = 0;
+      },
+      close: function() {
+        this.hide = !this.hide;
+      }
+    });
+  </script>
+</polymer-element>

@@ -1,6 +1,6 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
 
-<polymer-element name="trebek-board" attributes="status data">
+<polymer-element name="trebek-board" attributes="data">
   <template>
     <style>
       :host table {
@@ -19,7 +19,7 @@
         padding: 20px;
         color: #fff;
         border-bottom: 12px solid #000;
-        font-size: 125%;
+        font-size: 115%;
       }
       :host table td {
         text-shadow: 3px 3px black;
@@ -27,6 +27,16 @@
         color: #FFF382;
         font-weight: bold;
         font-size: 200%;
+      }
+
+      @media (max-width: 1000px) {
+        :host table th {
+          padding: 20px 0px;
+          color: #fff;
+          border-bottom: 12px solid #000;
+          font-size: 100%;
+          word-break: break-all;
+        }
       }
     </style>
 

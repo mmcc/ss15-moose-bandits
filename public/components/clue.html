@@ -1,0 +1,48 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<polymer-element name="trebek-clue" attributes="category value text">
+  <template>
+    <style>
+      :host p .final {
+        background: red;
+      }
+      :host speech-mic {
+        margin-top: 15px;
+        transform: scale(2);
+      }
+    </style>
+
+    <trebek-modal hidden?="{{hide}}">
+      <h1>{{category}} ${{value}}</h1>
+      <p>{{text}}</p>
+      <speech-mic id="speechMic"></speech-mic>
+      <p class="{{ {final: isFinal} | tokenList}}" id="transcript"></p>
+    </trebek-modal>
+  </template>
+
+  <script>
+    Polymer({
+      ready: function() {
+        self.isFinal = true;
+        var transcript = this.$.transcript;
+        this.$.speechMic.addEventListener('speech-mic-result', function(e) {
+          transcript.innerHTML = e.detail.transcript;
+          if (e.detail.isFinal) {
+            self.isFinal = true;
+            transcript.innerHTML = e.detail.transcript;
+            console.log(e.detail.transcript);
+          }
+        });
+      },
+      publish: {
+        hide: {
+          value: false,
+          reflect: true
+        }
+      },
+      close: function() {
+        this.hide = !this.hide;
+      }
+    });
+  </script>
+</polymer-element>

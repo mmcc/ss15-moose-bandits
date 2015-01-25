@@ -1,17 +1,22 @@
 var jquery = require('jquery');
 var jservice = require('./jservice');
+var vox = require('./vox');
 var answers = require('./answers');
 var utils = require('./utils');
 var Jeopardy = require('./jeopardy');
 jeopardy = new Jeopardy("https://moose-bandits.firebaseio.com/");
 
 // Check for the current game in the query params
+// We'll also update this later to store the current game globally.
 var currentGame = utils.getQueryParams()['current-game'];
 
 // If there is a current game, use that when init-ing.
 // TODO: Replace this with a check for whether or not this should just be a client
 // joining a game. Perhaps another query string specifying whether or not this is a display?
 returnOrCreateGame(currentGame, function(err, gameId) {
+  // Update it. If it's the same, who gaf.
+  currentGame = gameId;
+
   //Start up a new server
   jeopardy.initServer(gameId, function(err, server){
     if (err) return console.error(err);
@@ -52,3 +57,9 @@ function returnOrCreateGame(id, cb) {
 
   jeopardy.createGame(cb);
 }
+
+// Header buttons
+jquery('#share').click(function(e) {
+  var shareUrl = window.location.origin + '?current-game='+ currentGame;
+  jquery('trebek-share').attr('gameId', shareUrl).removeAttr('hide');
+});
