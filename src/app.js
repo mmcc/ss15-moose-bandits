@@ -2,7 +2,6 @@ var $ = require('jquery');
 var jservice = require('./jservice');
 var vox = require('./vox');
 var answers = require('./answers');
-var polymer = require('polyfill-webcomponents');
 
 $(document).ready(function() {
   jservice.generateBoard(function(category, clues) {
