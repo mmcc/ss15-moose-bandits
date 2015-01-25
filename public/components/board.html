@@ -53,7 +53,7 @@
         <template repeat="{{row in rows}}">
           <tr>
             <template repeat="{{item in row}}">
-              <td>
+              <td id="{{item.value}}" on-click={{itemClick}}>
                 <template if="{{item.status == 'active'}}">${{item.value}}</template>
               </td>
             </template>
@@ -70,6 +70,10 @@
       status: 'active', // Default value
       created: function() {
         this.data = {};
+      },
+      itemClick: function(event, detail, sender) {
+        var item = event.target.templateInstance.model.item;
+        console.log(item);
       },
       ready: function() {
         var data = this.data;

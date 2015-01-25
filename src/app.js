@@ -58,6 +58,7 @@ returnOrCreateGame(initialValues.gameId, function(err, gameId) {
     });
 
     client.setGameStateCB(function(gameState){
+      
       console.log(gameState);
     });
 
