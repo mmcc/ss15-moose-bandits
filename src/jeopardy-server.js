@@ -112,7 +112,16 @@
     buzzerRef.child('lock').on('value', function(data){
       if(data.exists()){
         buzzerTimeout = setTimeout(function(){
+          var player = data.val();
+          gameLogic.child('question').child('value').once('value', function(value){
+            if(value.exist()){
+              playersRef.child(player).child('score').transaction(function(score){
+                return score -= value.val();
+              });
+            }
+          });
           data.ref().remove();
+
         }, 10000)
       }
     });

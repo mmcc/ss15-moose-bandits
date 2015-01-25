@@ -55,6 +55,7 @@
 
   JeopardyClient.prototype.setBuzzerLockCB = function(cb) {
     var auth = this.firebase.getAuth();
+    var fb = this.firebase;
     this.firebase.child('buzzer').child('lock').on('value', function(data){
       if (data.exists()) {
         if (auth && auth.uid === data.val()){
@@ -63,7 +64,13 @@
           cb('locked');
         }
       } else {
-        cb('open');
+        fb.child('buzzer').child(auth.uid).once('value', function(failed){
+          if(failed.exists()){
+            cb('failed');
+          } else {
+            cb('open');
+          }
+        });
       }
     });
   }
