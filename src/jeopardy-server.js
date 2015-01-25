@@ -1,4 +1,5 @@
 (function() {
+  var jservice = require('./jservice');
 
   function utf8_to_b64( str ) {
     return window.btoa(unescape(encodeURIComponent( str )));
@@ -12,6 +13,28 @@
     this.firebase = options.firebase;
     this.gameId = options.gameId;
     this.authData = options.authData;
+  }
+
+  function gameboardToDisplay(gd) {
+    displayData = [];
+    for (var category in gd) {
+      if (gd.hasOwnProperty(category)) {
+        if (displayData[0] == null) { displayData[0] = []}
+        displayData[0].push(b64_to_utf8(category));
+        var i = 1;
+        var catData = gd[category];
+        for (var clue in catData) {
+          if (catData.hasOwnProperty(clue)){
+            if (displayData[i] == null) {displayData[i] = []}
+            var clueData = catData[clue];
+            var clueObj = {value: clueData.value, status: 'active'}
+            displayData[i].push(clueObj)
+            i++;
+          }
+        }
+      }
+    }
+    return displayData;
   }
 
   JeopardyServer.prototype.register = function(callback){
@@ -37,49 +60,35 @@
     });
   }
 
-
   JeopardyServer.prototype._setupGame = function(callback) {
     var gameboardRef = this.firebase.child('gameBoard');
     var displayBoardRef = this.firebase.child('displayBoard');
+    var buzzerRef = this.firebase.child('buzzer');
+
 
     gameboardRef.on('value', function(data){
       if (data.exists()) {
-        var display = {};
         var gameData = data.val();
-        for (var category in gameData) {
-          if (gameData.hasOwnProperty(category)) {
-            var catData = gameData[category];
-            display[category] = {};
-            for (var clue in catData) {
-              if (catData.hasOwnProperty(clue)){
-              var clueData = catData[clue];
-                display[category][clueData.value] = {status: 'active'}
-              }
-            }
-          }
-        }
-        displayBoardRef.set(display);
+        displayBoardRef.set(gameboardToDisplay(gameData));
       } else {
         //Create the board
-        require('./jservice').generateBoard(function(cat, clues){
+        jservice.generateBoard(function(cat, clues){
           gameboardRef.child(utf8_to_b64(cat.title)).set(clues);
         });
       }
+    });
+
+    //Game Logic
+    buzzerRef.on('value', function(data){
+      
     });
   }
 
   JeopardyServer.prototype.setDisplayBoardCB = function(cb) {
     var displayBoardRef = this.firebase.child('displayBoard');
     displayBoardRef.on('value', function(data){
-      if(data.exists()) {
-        var displayBoard = {};
-        var boardData = data.val();
-        for (var category in boardData){
-          if (boardData.hasOwnProperty(category)){
-            displayBoard[b64_to_utf8(category)] = boardData[category];
-          }
-        }
-        cb(displayBoard);
+       if(data.exists()) {
+        cb(data.val());
       }
     });
   }

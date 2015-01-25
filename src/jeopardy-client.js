@@ -1,12 +1,5 @@
 (function() {
 
-  function utf8_to_b64( str ) {
-    return window.btoa(unescape(encodeURIComponent( str )));
-  }
-
-  function b64_to_utf8( str ) {
-    return decodeURIComponent(escape(window.atob( str )));
-  }
 
   function JeopardyClient(options) {
     this.firebase = options.firebase;
@@ -25,14 +18,7 @@
     var displayBoardRef = this.firebase.child('displayBoard');
     displayBoardRef.on('value', function(data){
       if(data.exists()) {
-        var displayBoard = {};
-        var boardData = data.val();
-        for (var category in boardData){
-          if (boardData.hasOwnProperty(category)){
-            displayBoard[b64_to_utf8(category)] = boardData[category];
-          }
-        }
-        cb(displayBoard);
+        cb(data.val());
       }
     });
   }
@@ -44,6 +30,24 @@
         cb(data.val());
       }
     });
+  }
+
+  JeopardyClient.prototype.setGameStateCB = function(cb) {
+
+  }
+
+  JeopardyClient.prototype.buzzIn = function() {
+    var uid = this.authData.uid;
+    this.firebase.child('buzzer').transaction(function(currentLock){
+      if (!data.exists()) {
+        return uid;
+      }
+      return;
+    });
+  }
+
+  JeopardyClient.prototype.submitAnswer = function(answer, cb) {
+
   }
 
   module.exports = JeopardyClient;
