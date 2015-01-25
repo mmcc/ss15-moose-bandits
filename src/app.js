@@ -1,4 +1,4 @@
-var $ = require('jquery');
+var jquery = require('jquery');
 var jservice = require('./jservice');
 var vox = require('./vox');
 var answers = require('./answers');
