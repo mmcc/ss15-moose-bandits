@@ -10,8 +10,7 @@ var currentGame = utils.getQueryParams()['current-game'];
 
 // If there is a current game, use that when init-ing.
 // TODO: Replace this with a check for whether or not this should just be a client
-// joining a game. Perhaps another query string specifying whether or not this is
-// a display?
+// joining a game. Perhaps another query string specifying whether or not this is a display?
 returnOrCreateGame(currentGame, function(err, gameId) {
   //Start up a new server
   jeopardy.initServer(gameId, function(err, server){
@@ -19,7 +18,7 @@ returnOrCreateGame(currentGame, function(err, gameId) {
     console.log(server.gameId)
 
     //This callback happens anytime the displayable "board" changes
-    //The callback param is an object ~ {category1: {100: {status: 'active'}, 200: {status: 'done'}}}
+    //The callback param is an object ~ [ [ 'cat1', 'cat2' ], [ { value: 100, status: 'active' }, { value: 100, status: 'active' } ] ]
     server.setDisplayBoardCB(function(board){
       jquery('#board').html("<trebek-board data='"+ JSON.stringify(board) +"'></trebek-board>")
     })
