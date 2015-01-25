@@ -59,10 +59,13 @@ returnOrCreateGame(initialValues.gameId, function(err, gameId) {
 
     client.setGameStateCB(function(gameState){
       if (gameState.state === 'select') {
+        jquery('trebek-clue').remove();
+        jquery('trebek-modal').remove();
         showModal('<p>Please select the next answer.</p>', true);
       }
 
       if (gameState.state === 'wait') {
+        jquery('trebek-clue').remove();
         showModal('<p>Please wait for a user to select an answer.</p>');
       }
 
