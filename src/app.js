@@ -3,12 +3,15 @@ var jservice = require('./jservice');
 var vox = require('./vox');
 var answers = require('./answers');
 var utils = require('./utils');
+var user = require('./user');
 var Jeopardy = require('./jeopardy');
 jeopardy = new Jeopardy("https://moose-bandits.firebaseio.com/");
 
 // Check for the current game in the query params
 // We'll also update this later to store the current game globally.
 var currentGame = utils.getQueryParams()['current-game'];
+
+console.log(user.username());
 
 // If there is a current game, use that when init-ing.
 // TODO: Replace this with a check for whether or not this should just be a client
@@ -47,6 +50,9 @@ function returnOrCreateGame(id, cb) {
 }
 
 // Header buttons
+jquery('#username').click(function(e) {
+  jquery('trebek-user').attr('user', user.username()).removeAttr('hide');
+})
 jquery('#share').click(function(e) {
   var shareUrl = window.location.origin + '?current-game='+ currentGame;
   jquery('trebek-share').attr('gameId', shareUrl).removeAttr('hide');
