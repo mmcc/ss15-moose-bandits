@@ -1,0 +1,23 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<polymer-element name="trebek-button" attributes="type" noscript>
+  <template>
+    <style>
+      button {
+        padding: 5px 10px;
+        align-self: center;
+        margin-left: 5px;
+        cursor: pointer;
+        background-color: #fff;
+        border: 2px solid #000;
+        border-radius: 4px;
+      }
+
+      button.danger { background-color: #FF0000; color: #fff; }
+      button.info { background-color: #fff; }
+      button.caution { background-color: #FFC70D; }
+    </style>
+
+    <button class="{{type}}"><content></content></button>
+  </template>
+</polymer-element>
