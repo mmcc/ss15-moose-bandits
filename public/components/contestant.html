@@ -1,0 +1,29 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<polymer-element name="trebek-contestant" attributes="name score">
+  <template>
+    <style>
+      .contestant-display {
+        display: flex;
+        line-height: 0;
+        padding-right: 10px;
+      }
+
+      .contestant-name {
+          padding-right: 5px;
+      }
+
+      .contestant-score {
+      }
+    </style>
+
+    <div class="contestant-display">
+      <p class="contestant-name">{{name}}</p>
+      <p class="contestant-score">${{score}}</p>
+    </div>
+  </template>
+  <script>
+    Polymer({
+    });
+  </script>
+</polymer-element>
