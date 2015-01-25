@@ -160,6 +160,7 @@
             var amt = 0;
             if (correct) {
               console.log("CORRECT!");
+              gameLogic.child('turn').set(uidSS.val());
               amt = question.val().value;
             } else {
               console.log("WRONG");
@@ -236,7 +237,7 @@
     });
   }
 
-  JeopardyClient.prototype.setDisplayPlayersCB = function(cb) {
+  JeopardyServer.prototype.setDisplayPlayersCB = function(cb) {
     var displayUsers = this.firebase.child('displayPlayers');
     displayUsers.on('value', function(data){
         cb(data.val());
