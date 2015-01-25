@@ -19,6 +19,9 @@
         padding-right: 5px;
       }
 
+      :host p.contestant-score {
+      }
+
       :host p.hosting {
         color: red;
       }
@@ -26,16 +29,30 @@
       :host p.answering {
         text-shadow: 1px 1px red;
       }
+
+      :host p.failing {
+        color: red;
+      }
+
     </style>
     <p class="{{ {hosting: isHosting, answering: isAnswering} | tokenList}} contestant-name">{{name}}</p>
-    <p class="contestant-score">${{score}}</p>
+    <p class="{{ {failing: isFailing} | tokenList}} contestant-score">{{score}}</p>
   </template>
   <script>
-    Polymer('trebek-contestant', {
+    Polymer({
       ready: function() {
         this.isHosting = this.getAttribute('host?');
         this.isAnswering = this.getAttribute('answering?');
-      },
+        this.isFailing = this.scoreBelowZero();
+
+        this.score = this.computeScore();
+    },
+    computeScore: function() {
+      return '$' + this.getAttribute('score');
+    },
+    scoreBelowZero: function() {
+      return this.getAttribute('score') < 0;
+    },
     });
   </script>
 </polymer-element>
