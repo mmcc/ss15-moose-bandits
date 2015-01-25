@@ -8,7 +8,7 @@ console.log(answers.checkAnswer('new hampshire', 'new hampshire'));
 
 jservice.generateBoard(function(category, clues) {
 
-  jquery(".board thead tr th").get(category.index).innerHTML = category.title;
+  // jquery(".board thead tr th").get(category.index).innerHTML = category.title;
 
   jquery.each(clues, function(i) {
     var clue = clues[i];
@@ -29,7 +29,9 @@ jeopardy.createGame(function(err, gameId){
     //This callback happens anytime the displayable "board" changes
     //The callback param is an object ~ {category1: {100: {status: 'active'}, 200: {status: 'done'}}}
     server.setDisplayBoardCB(function(board){
-      //console.log(JSON.stringify(board));
+      // jquery('trebek-board').attr('data', JSON.stringify(board));
+      jquery('#board').html("<trebek-board data='"+ JSON.stringify(board) +"'></trebek-board>")
+      // console.log(JSON.stringify(board));
     })
   });
 
@@ -40,5 +42,3 @@ jeopardy.createGame(function(err, gameId){
     });
   });
 });
-
-
