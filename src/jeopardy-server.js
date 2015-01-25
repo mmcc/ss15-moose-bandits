@@ -90,6 +90,8 @@
     var gameLogic = this.firebase.child('game');
     var publicState = this.firebase.child('publicState');
     var qSelector = this.firebase.child('selectedQuestion');
+    var buzzerTimeout = null;
+    var questionTimeout = null;
 
     gameboardRef.on('value', function(data){
       if (data.exists()) {
@@ -104,8 +106,12 @@
     });
 
     //Game Logic
-    buzzerRef.on('value', function(data){
-      
+    buzzerRef.child('lock').on('value', function(data){
+      if(data.exists()){
+        buzzerTimeout = setTimeout(function(){
+          data.ref().remove();
+        }, 10000)
+      }
     });
 
     //Set initial player data
@@ -123,8 +129,14 @@
         var state = data.val();
         switch (state) {
           case 'select':
+            clearTimeout(questionTimeout);
+            clearTimeout(buzzerTimeout);
+            buzzerRef.remove();
             break;
           case 'answer':
+            questionTimeout = setTimeout(function(){
+              gameLogic.child('state').set('select');
+            });
             break;
         }
       } else {

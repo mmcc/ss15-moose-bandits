@@ -38,6 +38,10 @@ returnOrCreateGame(currentGame, function(err, gameId) {
     client.setGameStateCB(function(gameState){
       console.log(gameState);
     });
+
+    client.setBuzzerLockCB(function(lockstate){
+      console.log(lockstate);
+    });
   });
 });
 

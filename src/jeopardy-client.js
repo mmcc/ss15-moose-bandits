@@ -53,6 +53,20 @@
     });
   }
 
+  JeopardyClient.prototype.setBuzzerLockCB = function(cb) {
+    var auth = this.firebase.getAuth();
+    this.firebase.child('buzzer').child('lock').on('value', function(data){
+      if (data.exists()) {
+        if (auth && auth.uid === data.val()){
+          cb('owned');
+        } else {
+          cb('locked');
+        }
+      } else {
+        cb('open');
+      }
+    });
+  }
 
   JeopardyClient.prototype.selectQuestion = function(category, value, cb) {
     //TODO: lock/authorize this
@@ -62,11 +76,19 @@
   JeopardyClient.prototype.buzzIn = function() {
     var uid = this.authData.uid;
     this.firebase.child('buzzer').transaction(function(currentLock){
-      if (!data.exists()) {
-        return uid;
+      if (currentLock === null) {
+        currentLock={};
+        currentLock.lock = uid;
+        currentLock[uid] = uid;
+        return currentLock;
+      }
+      if (currentLock.lock === null && currentLock[uid] === null){
+        currentLock.lock = uid;
+        currentLock[uid] = uid;
+        return currentLock;
       }
       return;
-    });
+    }, function(){}, false);
   }
 
   JeopardyClient.prototype.submitAnswer = function(answer, cb) {
