@@ -46,7 +46,7 @@
             }
             break;
           case 'answer':
-            cb({state: 'answer', question: game.question, turn: game.turn}})
+            cb({state: 'answer', question: game.question, turn: game.turn})
             break;
         }
       };
