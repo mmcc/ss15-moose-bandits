@@ -1,0 +1,31 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<polymer-element name="trebek-share" attributes="gameId">
+  <template>
+    <style>
+    </style>
+
+    <trebek-modal hidden?="{{hide}}">
+      <p>Share this game with a friend!</p>
+      <input type="url" value="{{gameId}}">
+      <button on-tap="{{close}}">Close</button>
+    </trebek-modal>
+  </template>
+
+  <script>
+    Polymer({
+      publish: {
+        hide: {
+          value: true,
+          reflect: true
+        }
+      },
+      creates: function() {
+        this.gameId = 0;
+      },
+      close: function() {
+        this.hide = !this.hide;
+      }
+    });
+  </script>
+</polymer-element>
