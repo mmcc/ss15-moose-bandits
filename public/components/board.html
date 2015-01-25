@@ -74,9 +74,8 @@
       itemClick: function(event, detail, sender) {
         var item = event.target.templateInstance.model.item;
 
-        // TODO neeed to get client
-        // update clue modal and unhide
-        //client.selectQuestion(item.category, item.value);
+        window.User.client.selectQuestion(item.category, item.value);
+
       },
       ready: function() {
         var data = this.data;

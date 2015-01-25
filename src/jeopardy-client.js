@@ -76,7 +76,7 @@
         var state = pState.val();
         if (state.state == 'select' && auth && auth.uid == state.turn) {
           console.log("Selecting: "+category+" "+value);
-          this.firebase.child('selectedQuestion').set({category: category, value: value}, cb);
+          fb.child('selectedQuestion').set({category: category, value: value}, cb);
         }
       }
     })
